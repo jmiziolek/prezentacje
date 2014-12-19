@@ -1,10 +1,12 @@
 var recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
-//recognition.interimResults = true;
+recognition.interimResults = true;
 recognition.lang = 'pl';
 recognition.onerror = function(event){console.error(event);};
 recognition.onresult = function(event){
     str = event.results[event.resultIndex][0].transcript;
+
+    console.warn(str);
     switch(true){
         case /dalej|dawaj|wio/.test(str):
             if(Reveal){
@@ -23,7 +25,7 @@ recognition.onresult = function(event){
             }
         break;
         default:
-            console.warn(str);
+            console.warn();
     }
 };
 //recognition.start();

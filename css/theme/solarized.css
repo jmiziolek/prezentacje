@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,700&subset=latin,latin-ext);
 /**
  * Solarized Light theme for reveal.js.
  * Author: Achim Staebler
@@ -18,7 +19,7 @@ body {
   background-color: #fdf6e3; }
 
 .reveal {
-  font-family: "Lato", sans-serif;
+  font-family: "Lato", Helvetica, sans-serif;
   font-size: 36px;
   font-weight: normal;
   letter-spacing: -0.02em;
@@ -40,9 +41,9 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #586e75;
-  font-family: Impact, sans-serif;
-  line-height: 0.9em;
-  letter-spacing: 0.02em;
+  font-family: Oswald,  Impact, sans-serif;
+  line-height: 1.1em;
+  font-weight: 700;
   text-transform: uppercase;
   text-shadow: none; }
 

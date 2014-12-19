@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Promisesy w AngularJS i nie tylko</title>
+        <meta name="description" content="Promisesy w AngularJS i nie tylko">
+        <meta name="author" content="Jakub Miziołek">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h1>Promisesy i Gulpowanie</h1>
+                    <h2>Jakub Miziołek</h2>
+                </section>
+
+                <section>
+                    <h1>O mnie</h1>
+                    <p>Front-end Developer w TT Lublin, Roche E<small>nterprise</small>M<small>obile</small>A<small>pps</small>, fanatyk Vima, Quake'a i długich dystansów</p>
+                </section>
+
+                <section>
+                    <h2>Plan produkcyjny na EE</h2>
+                    <ul>
+                        <li>Promise</li>
+                        <li>Ciut o Gulp w ng</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Promisy</h1>
+                    <img src="img/then.svg" alt="Promise A/+ Logo">
+                </section>
+
+                <section>
+                    <h1>Promisy</h1>
+                    <p>pozwalają imitować/emulować synchroniczność w asynchronicznym środowisku JavaScript.</p>
+                </section>
+
+                <section>
+                    <h2>Codepen</h2>
+                    <a href="http://codepen.io/jmiziolek/pen/Pwzbqe?editors=001">link</a>
+                    <p data-height="368" data-theme-id="0" data-slug-hash="Pwzbqe" data-default-tab="js" data-user="jmiziolek" class='codepen'>See the Pen <a href='http://codepen.io/jmiziolek/pen/Pwzbqe/'>Pwzbqe</a> by Jakub Miziołek (<a href='http://codepen.io/jmiziolek'>@jmiziolek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+                    <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+                </section>
+
+                <section>
+                    <h2>Historia</h2>
+                    <ul>
+                        <li>1976 Daniel P. Friedman, David Wise, Peter Hibbard pierwsze użycie terminu promise.</li>
+                        <li>CommonJS Promise/A</li>
+                        <li>jQuery Deferred Objects</li>
+                        <li><strong>Promise/A+</strong></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Po co one są!? Po co są one?!</h2>
+                </section>
+
+                <section>
+                    <img src="img/hell.png" alt="callback hell">
+                </section>
+
+                <section>
+                    <img src="img/hellex.jpg" alt="callbacks">
+                </section>
+
+                <section>
+                    <h2>Problem piekła callbacków</h2>
+                    <ul>
+                        <li>brak standaryzacji metod, argumentów...</li>
+                        <li>brak gwarancji wywołania callbacka lub wywołania go tylko raz</li>
+                        <li>potrzeba obsługi błędów na każdym poziomie zagnieżdżenia</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Sposób działania</h2>
+                    <p>Promise reprezentuje wynik operacji. Może znajdować się w jednym z 3 stanów:</p>
+                    <ul>
+                        <li>oczekujący</li>
+                        <li>spełniony</li>
+                        <li>odrzucony</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Właściwości</h2>
+                    <p>Promise może zmienić stan tylko raz.</p>
+                </section>
+
+                <section>
+                    <h2>Właściwości</h2>
+                    <p>Do spełnienia lub odrzucenia promise'a możemy przypiąć dowolną ilość funkcji obsługi</p>
+                </section>
+
+                <section>
+                    <h2>Właściwości</h2>
+                    <p>Wynikiem jest zawsze pojedyńcza wartość. Wynik w przypadku odrzucenia nazywamy przyczyną</p>
+                </section>
+
+                <section data-background="img/koval.png">
+                    <h1>$q</h1>
+                </section>
+
+                <section>
+                    <h2>Tworzenie</h2>
+                    <pre><code data-trim contenteditable>
+//defer, deferred, d, dfd...
+var defer = $q.defer();
+if(czy){
+    defer.resolve("obiad");
+} else {
+    defer.reject("głód i halucynajce");
+}
+return defer.promise;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Użycie</h2>
+                    <pre><code data-trim contenteditable>
+promise.then(ok, err);
+//kazda z funkcji dostaje jeden argument jako wynik
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Callback vs Promise</h2>
+                </section>
+
+                <section>
+                    <h2>Callback</h2>
+                    <pre><code data-trim contenteditable>
+var fs = require('fs');
+function readJSON(filename, callback, errorcallback){
+  fs.readFile(filename, function (err, res){
+    if (err) return errorcallback(err);
+    callback(res, function(){
+        //i głębiej i głębiej i głębiej
+    });
+  });
+}
+readJSON('d.json', JSON.parse, console.error);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Promise</h2>
+                    <pre><code data-trim contenteditable>
+var fs = require('q-io/fs');
+fs.read('d.json').then(JSON.parse, console.error);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Promise 2</h2>
+                    <pre><code data-trim contenteditable>
+var q = require('q');
+var readFile = q.denodeify(require('fs').readFile);
+readFile('d.json').then(JSON.parse, console.error);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Łańcuch promisów</h2>
+                    <pre><code data-trim contenteditable>
+$http.get("nic")
+    .then($http.post('dev/null'))
+    .then(console.log, console.error);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Dobre praktyki</h2>
+                    <p>funkcja obsługi odrzucenia zawsze na samym dole łańcucha!</p>
+                    <pre><code data-trim contenteditable>
+x.then(dobraFoo)
+    .then(rzucBledem)
+    .then(dobraFoo)
+    .then(null, console.error);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Dobre praktyki</h2>
+                    <p><q>.done()</q>, która przechwytuje wyjątki w przypadku braku obsługi odrzucenia<p>
+                    <pre><code data-trim contenteditable>
+x.then(dobraFoo)
+    .then(rzucBledem)
+    .then(dobraFoo)
+    .done();
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Promise w AngularJS</h2>
+                    <ul>
+                        <li>$q (uboga wersja kriskoval/q)</li>
+                        <li>$timeout</li>
+                        <li>$interval</li>
+                        <li>$http</li>
+                        <li>$resource</li>
+                        <li>resolve route</li>
+                        <li>angular-ui (modal)</li>
+                        <li>&hellip;</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Problemy</h2>
+                    <ul>
+                        <li>Zagnieżdzanie promisów</li>
+                        <li>Konieczność częstego tworzenia nowych promisów lub korzystania z przystosowanych bibliotek</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Promisy zagnieżdżone</h2>
+                    <pre><code  data-trim contenteditable>
+getPralnie().then(function(pralnie){
+
+    $scope.pralnie = pralnie;
+
+    //zagnieżdżony promis
+    $http.get('pralnia' + result._id).then(pierz);
+
+});
+                    </code></pre> 
+                </section>
+
+                <section>
+                    <h2>Promisy spłaszczone</h2>
+                    <pre><code  data-trim contenteditable>
+getPralnie.then(function(pralnie){
+
+    $scope.pralnie = pralnie;
+
+    //rezultat zostanie przekazany do funkcji pierz
+    return $http.get('pralnia' + result._id);
+
+}).then(pierz);
+                    </code></pre> 
+                </section>
+
+                <section>
+                    <h2>Szybkie tworzenie promisów</h2>
+                    <pre><code  data-trim contenteditable>
+$q.when("zjadłem ostropest");
+                    </code></pre>
+                    <p>tworzy promise rozwiązany przekazaną wartością</p>
+                    <pre><code data-trim contenteditable>
+$q.reject("nie ma ostropestu");
+                    </code></pre> 
+                    <p>tworzy promise odrzucony przekazaną wartością</p>
+                </section>
+
+                <section>
+                    <h2>jQuery Defereds</h2>
+                    <p>kill it with fire!</p>
+                    <pre><code data-trim contenteditable>
+                        $q($.ajax({/* ... */}));
+                    </code></pre> 
+                </section>
+
+                <section>
+                    <h2>Dlaczego promisy są super?</h2>
+                    <ul>
+                        <li>jasne oddzielenie błędu od dobrego wyniku</li>
+                        <li>łatwe łączenie wielu operacji</li>
+                        <li>możliwość łączenia promisów jeden po drugim lub kilka na raz w jednym łańcuchu</li>
+                        <li>są zawsze asynchroniczne</li>
+                        <li>bubbling błędów</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>łączenie jeden po drugim</h2>
+                    <pre><code data-trim contenteditable>
+$http.get('janusz').then(sprawdzJanusza)
+    .then(rozbierzJanusza)
+    .then(utylizujKoszuleJanusza)
+    .then(sprzatajOkruszki)
+                    </code></pre>
+                
+                </section>
+
+                <section>
+                    <h2>łączenie równolegle</h2>
+                    <pre><code data-trim contenteditable>
+$http.get("posty");
+$http.get("komenty");
+$http.get("reklamy");
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>łączenie równolegle cd&hellip;</h2>
+                    <pre><code data-trim contenteditable>
+$q.all([
+    $http.get("posty"),
+    $http.get("komenty"),
+    $http.get("reklamy"),
+]).then(results){
+    //resutls = [posty, komenty, reklamy]
+};
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>łączenie równolegle cd&hellip;</h2>
+                    <pre><code data-trim contenteditable>
+$q.all([
+    $http.get("posty"),
+    $http.get("komenty"),
+    $http.get("reklamy"),
+]).spread(function(posty, komenty, reklamy){
+    //argumenty rozdzielone wymaga $q-spread
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>łączenie mieszane</h2>
+                    <pre><code data-trim contenteditable>
+$q.all([
+    $http.get("posty"),
+    $http.get("komenty").then(usunSpam),
+    $http.get("reklamy"),
+]).spread(function(posty, komentyPrzetworzone, reklamy){
+    //argumenty rozdzielone
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>zawsze asynchroniczne</h2>
+                    <pre><code data-trim contenteditable>
+console.log(1);
+$q.when(3).then(console.log);
+console.log(2);
+//1,2,3
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>bubbling błędów</h2>
+                    <pre><code  data-trim contenteditable>
+$http.get("/users").then(zniszczIch)
+    .then(ukryjZwłoki)
+    .then(null, uciekajPrzedPolicją);
+                    </code></pre> 
+                </section>
+
+                <section>
+                    <h2>Routing</h2>
+                    <pre><code  data-trim contenteditable>
+//ngRoute albo ui-router
+$stateProvider.state('login', {
+    url: '/login',
+    templateUrl: 'views/login.html',
+    controller: 'LoginController',
+}).state('index', {
+    url: '/index',
+    templateUrl: 'views/main.html',
+    controller: 'MainController',
+    resolve: {
+        lista: function(lista){
+            return lista.get();
+        }
+    },
+});
+                    </code></pre> 
+                </section>
+
+                <section>
+                    <h2>Codepen</h2>
+                    <a href="http://codepen.io/jmiziolek/pen/Pwzbqe?editors=101">link</a>
+                    <p data-height="368" data-theme-id="0" data-slug-hash="Pwzbqe" data-default-tab="js" data-user="jmiziolek" class='codepen'>See the Pen <a href='http://codepen.io/jmiziolek/pen/Pwzbqe/'>Pwzbqe</a> by Jakub Miziołek (<a href='http://codepen.io/jmiziolek'>@jmiziolek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+                    <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+                </section>
+
+                <section>
+                    <h2>progress/notify</h2>
+                    <pre><code  data-trim contenteditable>
+function processMartix(data){
+  var output = [],
+      deferred = $q.defer(),
+      percentComplete = 0;
+
+  for(var i = 0; i &lt; data.length; i++){
+    output.push(processDataItem(data[i]));
+    percentComplete = (i+1)/data.length * 100;
+    deferred.notify(percent);
+  }
+
+  deferred.resolve(output);
+
+  return deferred.promise;
+};
+
+processMartix(data)
+  .then(function(result){
+    // success
+  }, function(error){
+    // error
+  }, function(percent){
+    $scope.progress = percent;
+  }); 
+                    </code></pre> 
+                </section>
+
+                <section data-background="img/gulp.png">
+                    <h1>GULP</h1>
+                    <h2>steaming build system</h2>
+                </section>
+
+                <section>
+                    <h2>Przeznaczenie</h2>
+                    <ul>
+                        <li>konkatenacja/minifikacja css,js,html</li>
+                        <li>kompilacja Sass, CoffeeScript, itd.</li>
+                        <li>LiveReload</li>
+                        <li>Deployment</li>
+                    </ul>
+                
+                </section>
+
+                <section>
+                    <h2>Przesiadka z Grunta?</h2>
+                </section>
+
+                <section>
+                    <h2>Zalety gulpa:</h2>
+                    <ul>
+                        <li>kod zamiast konfiguracji</li>
+                        <li>szybkość działania</li>
+                        <li>minium IO, maximum współbierzności</li>
+                        <li>Tylko 5 metod(src, dest, task, watch, run)</li>
+                        <li>można używać zwykłych modułów zamiast pluginów</li>
+                        <li>wspaniała nazwa, mniej przyziemna</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>src(files)</h2>
+                    <h3>Strumień odczytu</h3>
+                </section>
+
+                <section>
+                    <h2>dest(folder)</h2>
+                    <h3>Strumień zapisu</h3>
+                </section>
+
+                <section>
+                    <h2>task(name, [deps], foo)</h2>
+                    <h3>Rejestracja taska. Potem jest on dostępny z konsoli i jako zależność innych tasków</h3>
+                </section>
+
+                <section>
+                    <h2>watch(files, foo)</h2>
+                    <h3>Zrób coś jak zmieni się coś w tych plikach </h3>
+                </section>
+
+                <section>
+                    <h2>run(name)</h2>
+                    <h3>Uruchom zadanie</h3>
+                </section>
+
+                <section>
+                    <pre><code  data-trim contenteditable>
+gulp.task('angularcache', function(){
+    //make templateCache
+    return gulp.src('./frontend/build/views/*.html')
+    .pipe(templateCache("templates.js", {module: "ttApp", root: "views/"}))
+    .pipe(gulp.dest('frontend/app/scripts/'));
+});
+
+//wynik
+angular.module("ttApp").run(["$templateCache", function($templateCache) {
+$templateCache.put("views/przyklad.html"," html ");
+};
+                    </code></pre> 
+                
+                </section>
+
+                <section>
+                    <h2>Linki</h2>
+                    <ul>
+                        <li><a href="https://github.com/stevekane/promise-it-wont-hurt">promise-it-wont-hurt</a></li>
+                        <li><a href="https://github.com/kriskowal/q">kriskowal/q</a></li>
+                        <li><a href="http://solutionoptimist.com/2013/12/27/javascript-promise-chains-2">javascript-promise-chains-2</a></li>
+                        <li><a href="https://docs.angularjs.org/api/ng/service/$q">docs.angularjs.org/api/ng/service/$q</a></li>
+                        <li><a href="https://promisesaplus.com/differences-from-promises-a">promisesaplus.com/differences-from-promises-a</a></li>
+                        <li><a href="http://hmphry.com/gulp/">hmphry.com/gulp/</a></li>
+                        <li><a href="http://gulpfiction.divshot.io/">gulpfiction.divshot.io/</a></li>
+                    </ul>
+
+                </section>
+
+                <section>
+                    <h1>Dzięki!</h1>
+                    <p><small>Jakieś pytania?</small></p>
+                </section>
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script>
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/fade/none
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/speech-control/speech-control.js', condition: function() { return !!('webkitSpeechRecognition' in window)}},
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-16017296-2']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</body>
+</html>

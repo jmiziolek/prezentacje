@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en">
     <!--
-    share buttons, ciezar i sledzenie
-    czy to musi byc transparent
-    optymalizacja zaczyna sie od designu
 
     udawanie osoby kreatywnej na krzesle
 
@@ -12,24 +9,15 @@
     -->
 	<head>
 		<meta charset="utf-8">
-
 		<title>Jakub Miziołek - prezentacja wordup #2</title>
-
 		<meta name="description" content="Optymalizacja WordPressa. Co można zmienić w designie strony i jak odchudzić front-end?">
 		<meta name="author" content="Jakub Miziołek">
-
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
-
-		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
 			if( window.location.search.match( /print-pdf/gi ) ) {
 				var link = document.createElement( 'link' );
@@ -39,41 +27,156 @@
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
-
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
-
 	<body>
 
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
+
 				<section>
 					<h1>Jak szybko wyciskać słowa?</h1>
                     <h3>Jakub Miziołek</h3>
-					<p>
-						<small><a href="http://jakbumiziolek.pl">jakubmiziolek.pl</a></small>
-					</p>
+					<p><a href="http://jakbumiziolek.pl">jakubmiziolek.pl</a></p>
+                    <aside class="notes">
+                        Dowiemy się jak zoptymalizować przykładowy przed chwilą kupiony motyw
+                        w kilka minut i bez wydawania pieniędzy.
+                    </aside>
 				</section>
+
+                <section>
+                    <h1>O mnie</h1>
+                    <p>Front-end Developer w <a href="tt.com.pl">tt.com.pl</a>, członek Stowarzyszenia Maraton Lubelski, fanatyk Vima, Quake'a i długich dystansów</p>
+                    <aside class="notes">
+                        Zapraszamy do pracy w TT a jak macie jakiś ciekawy projekt to chętnie wezmę udział.
+                        Na spotkania stowarzyszenia zapraszam "teraz" do kawiarni Kawka na Okopowej.
+                    </aside>
+                </section>
 
 				<section>
 					<h2>Plan Operacyjny na EE</h2>
-
                     <ul>
                         <li>Design</li>
                         <li>Kod</li>
-                        <li>Podsumowanie</li>
+                        <li>Obsługa W3 Total Cache</li>
+                        <li>Pytania i Odpowiedzi</li>
                     </ul>
                     <aside class="notes">
-                        Skupię sie na frontendzie, bo na tym sie znam i to daje największe efekty
+                        Skupię sie na frontendzie, bo na tym sie znam i to daje największe efekty.
+                        Wskazówki dotyczące designu pomogą nam wybrać motyw który będzie szybszy.
 					</aside>
 				</section>
 
                 <section>
+                    <h1>Dlaczego to robimy?</h1>
+                    <aside class="notes"></aside>
+                </section>
+
+                <section>
+                    <h1>Design</h1>
+                    <h2>mobile first FTW!!!</h2>
+                    <aside class="notes">
+                        Najpierw najpotrzebniejsze rzeczy potem ewentualnie reszta.
+                        Responsive Web Design. Myślmy o każdym elemencie tak jak zrobił by to hipster webdesigner.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Obrazki</h2>
+                    <ul>
+                        <li>Po co?</li>
+                        <li>Gdzie i kiedy?</li>
+                        <li>Jakiej wielkości?</li>
+                    </ul>
+
+                    <aside class="notes">
+                        Obrazek powinien coś wnosić do strony.
+                        Logo, zadowolona twarzoczaszka, przepastna lista zrealizowanych projektów.
+                        Ale tylko w takiej ilości, którą można ogarnąć wzrokiem.
+                        Każdy obrazek musi mieć minimalną potrzebną rozdzielczość.
+
+                        Błąd w motywie Frank którego używam objawiał się tym, że zamiast miniaturki wpisu był pełny rozmiar.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Fonty</h2>
+                    <ul>
+                        <li>Po co?</li>
+                        <li>Ile?</li>
+                        <li>Za ile?</li>
+                    </ul>
+
+                    <aside class="notes">
+                        Font bo chcę się wyróżnić, jakikolwiek dziwny!!!
+                        Warto pamiętać, że nudne standardowe fonty mają tą zaletę,
+                        że użytkownicy są do nich przyzwyczajeni.
+                        Czy przypadkiem nie pobieramy 8 wersji a używamy tylko normal i bold.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Przeźroczyste Obrazki</h2>
+                    <p>Jeśli nie możesz się oprzeć pamiętaj o kompresji! <small>ImageOptim, PNGGauntlet</small></p>
+                    <p>Efekt najczęściej nie jest wart wagi pliku</p>
+
+                    <aside class="notes">
+                        Programy do bezstratnej kompresji. Uwaga! Niektóre mogą usuwać EXIFy!
+                    </aside>
+                </section>
+
+                <section>
+                    <img src="img/bear.png" alt="pebobear">
+                </section>
+
+                <section>
+                    <img src="img/cage.png" alt="nicolas">
+                </section>
+
+                <section>
+                    <h2>Niepotrzebne sekcje/widgety</h2>
+                    <p>"A może się komuś przyda"</p>
+                </section>
+
+                <section>
+                    <h2>Serwisy społecznościowe</h2>
+                    <ul>
+                        <li>Czy liczniki są potrzebne?</li>
+                        <li>Czy chcesz ułatwiać facebookowi śledzenie użytkowników?</li>
+                        <li>Może wystarczą samę linki</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <img  src="img/face.jpg" alt="Facebook share link">
+                </section> 
+
+                <section>
+                    <code>http://twitter.com/share?url=blablabl&title=blablabla</code>
+                </section> 
+
+                <section>
                     <h1>Kod</h1>
+                    <aside class="notes">
+                        Robi się coraz bardziej technicznie. Czas na optymalizację kodu strony.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Sprawdzamy</h2>
+                    <ul>
+                        <li>Yslow</li>
+                        <li>Google Page Speed Insights</li>
+                        <li>Gtmetrix</li>
+                    </ul>
+                    <aside class="notes">
+                        pokaż przygotowaną stronę!!!!
+                        użyjemy yslow bo działa nawet offline
+                    </aside>
                 </section>
 
                 <section>
@@ -81,19 +184,40 @@
                     <img  src="img/yslowprzed.jpg" alt="yslow wyniki przed optymalizacją">
                 </section>
 
+                <section data-background="img/waiting.jpg" > </section>
+
                 <section>
                     <h2>ocena 66/100</h2>
                     <h2>2.2sec czekania</h2>
+
+                    <aside class="notes">
+                        Jeszcze parę dodanych wpisów, taksonomii i widgetów i spokojnie
+                        przekroczymy magiczne 3 sekundy po których użytkownik jest już zdenerwowany czekaniem.
+                    </aside>
                 </section>
 
                 <section>
                     <h1>Zaciągamy pluginy do pomocy!</h1>
+                    <aside class="notes">
+                        trzeba będzie trochę poklikać
+                    </aside>
                 </section>
+
+                <section data-background="img/konfig.gif"></section>
 
                 <section>
                     <h2>W3 Total Cache</h2>
                     <h2>WP Widget Cache</h2>
-                    <h2>WP Minify Fix*</h3>
+                    <h2>Optimize DB</h2>
+                    <h2>WP Minify Fix*</h2>
+
+                    <aside class="notes">
+                        Któtko opisz wszystkie i powiedz, żę W3 jest trudny w obsłudze.
+                    </aside>
+                </section>
+
+                <section>
+                    <h1><a target="_blank" href="http://wordup.lublin.pl/wp-admin/">DEMO</a></h1>
                 </section>
 
                 <section>
@@ -101,24 +225,98 @@
                     <ul>
                         <li>Statyczne menu i widgety</li>
                         <li>Zewnętrzny skrypt komentarzy (DISQUS)</li>
-                        <li>dopieszcznie .htaccess</li>
+                        <li>Kompresja obrazków</li>
+                        <li>Usunięcie niepotrzebnych pluginów</li>
                     </ul>
+                    <aside class="notes">
+                        Jeżeli macie jakieś własne pluginy stanowiące sedno waszego serwisu to sprawdźcie
+                        czy to rozwiązanie jest skalowalne i czy nie da się go przenieść poza WordPressa.
+                        DISQUS jest naprawdę dobrze zoptymalizowany. Miesiąc cache'u pobieranie tylko configu i lazy loading komentarzy.
+                    </aside>
                 </section>
 
                 <section>
-                    <h2>Po optymalizacj</h2>
+                    <h2>Najczęstsze problemy</h2>
+                </section>
+
+                <section data-background="img/lawina.gif"></section>
+
+                <section>
+                    <h2>Najczęstsze problemy</h2>
+                    <ul>
+                        <li>hosting zabrania, hosting blokuje</li>
+                        <li>brak praw dostępu do plików</li>
+                        <li>błędy w JavaScript</li>
+                    </ul>
+
+                    <aside class="notes">
+                        Z tego względu nie należy optymalizować na działającym serwisie.
+                        Mi się parę razy udało. Zawsze róbcie backup!
+                        Po optymalizacji przywracamy standardowe prawa plików (.htaccess i wp-content)
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>UWAGA!</h2>
+                    <p>Sprawdź działanie strony po optymalizacji!</p>
+                    <p>Oddzielnie dla zalogowanych użytkowników i dla niezalogowanych!</p>
+                </section>
+
+                <section>
+                    <h2>Po optymalizacji</h2>
                     <img  src="img/yslowpo.jpg" alt="yslow wyniki po optymalizacji">
                 </section>
 
                 <section>
                     <h2>ocena 94/100</h2>
                     <h2>0.9sec czekania</h2>
+                    <aside class="notes">
+                        Przeglądarka pobiera tearaz znacznie mniej plików i mają one minimalny rozmiar.
+                        Weźmy też pod uwagę, że jeśli użytkownik jest oddalony od serwera to możemy spokojnie doliczyć drugie tyle.
+                    </aside>
+                </section>
+                
+                <section data-background="img/hyperspace.gif" ></section>
+
+                <section>
+                    <h2>Korzyści</h2>
+                    <ul>
+                        <li>Zadowolenie użytkowników</li>
+                        <li>Mniejsze obciążenie serwera (transfer)</li>
+                        <li>CTR</li>
+                    </ul>
+                    <aside class="notes">
+                        Czyli realna kasa i dodatkowi użytkownicy.
+                        Dodatkowy plugin oczywiście zużywa więcej procesora ale robi to raz na zmianę
+                        wprowadzoną przez administratora albo raz na wygaśnięcie cache'u.
+                    </aside>
                 </section>
 
+                <section>
+                    <h2>Co dalej</h2>
+                    <ul>
+                        <li>CDN</li>
+                        <li>VPS/Chmura i Opcode APC Cache</li>
+                    </ul>
+                    <aside class="notes">
+                        Ale tu już zaczynają się dodatkowe opłaty. Przypomnę również o CloudFlare o krótym była prezentacja Karola.
+                    </aside>
+                </section>
 
                 <section><h1>&hellip;</h1></section>
                 <section><h1>&hellip;</h1></section>
                 <section><h1>&hellip;</h1></section>
+
+                <section>
+                    <h2>Źródła zdjęć</h2>
+                    <ul>
+                        <li><a href="http://wallpaperswide.com/waiting_cat-wallpapers.html">czekający kotek</a></li>
+                        <li><a href="http://gifsoup.com">nadprzestrzeń</a></li>
+                        <li><a href="http://adamusprime.tumblr.com/post/7472739130/i-just-made-a-shitty-cutout-of-nic-cages-head">nicolas</a></li>
+                        <li><a href="http://4chan.org">miś</a></li>
+                        <li><a href="http://thecodinglove.com">lawina i gracz</a></li>
+                    </ul>
+                </section>
 
                 <section>
                     <h1>FIN</h1>
@@ -127,6 +325,9 @@
                     <h3>Przyjme przydatną uwagę</h3>
                     <h3>działającą wagę z pomiarem tłuszczu też przyjmę</h3>
                     <h3><a href="http://jakubmiziolek.pl" target="_blank">jakubmiziolek.pl</a></h3>
+                    <aside class="notes">
+                        Ostatnim slajdem z mojej poprzedniej prezentacji postawiłem sobię poprzeczkę wysoko... ALE!!
+                    </aside>
                 </section>
 
 
@@ -211,32 +412,18 @@
 					<!--</script>-->
 				<!--</section>-->
 
-				<!--<section id="transitions">-->
-					<!--<h2>Transition Styles</h2>-->
-					<!--<p>-->
-						<!--You can select from different transitions, like: <br>-->
-						<!--<a href="?transition=cube#/transitions">Cube</a> --->
-						<!--<a href="?transition=page#/transitions">Page</a> --->
-						<!--<a href="?transition=concave#/transitions">Concave</a> --->
-						<!--<a href="?transition=zoom#/transitions">Zoom</a> --->
-						<!--<a href="?transition=linear#/transitions">Linear</a> --->
-						<!--<a href="?transition=fade#/transitions">Fade</a> --->
-						<!--<a href="?transition=none#/transitions">None</a> --->
-						<!--<a href="?#/transitions">Default</a>-->
-					<!--</p>-->
-				<!--</section>-->
 
 				<!--<section id="themes">-->
 					<!--<h2>Themes</h2>-->
 					<!--<p>-->
 						<!--Reveal.js comes with a few themes built in: <br>-->
-						<!--<a href="?#/themes">Default</a> --->
-						<!--<a href="?theme=sky#/themes">Sky</a> --->
-						<!--<a href="?theme=beige#/themes">Beige</a> --->
-						<!--<a href="?theme=simple#/themes">Simple</a> --->
-						<!--<a href="?theme=serif#/themes">Serif</a> --->
+						<!--<a href="?#/themes">Default</a> -->
+						<!--<a href="?theme=sky#/themes">Sky</a> -->
+						<!--<a href="?theme=beige#/themes">Beige</a> -->
+						<!--<a href="?theme=simple#/themes">Simple</a> -->
+						<!--<a href="?theme=serif#/themes">Serif</a> -->
 						<!--<a href="?theme=night#/themes">Night</a> <br>-->
-						<!--<a href="?theme=moon#/themes">Moon</a> --->
+						<!--<a href="?theme=moon#/themes">Moon</a> -->
 						<!--<a href="?theme=solarized#/themes">Solarized</a>-->
 					<!--</p>-->
 					<!--<p>-->
